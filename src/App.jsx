@@ -136,7 +136,7 @@ if(error) return <p>{error}</p>
                     >
                         <div className="w-full mb-1">
                             <InputBox
-                            className={`${darkMode ? "text-black" : "text-white"}`}
+                            className='text-black'
                                 label="From"
                                 amount={amount}
                                 currencyOptions={options}
@@ -159,7 +159,7 @@ if(error) return <p>{error}</p>
                         </div>
                         <div className="w-full mt-1 mb-4">
                             <InputBox
-                            className={`${darkMode ? "text-black" : "text-white"}`}
+                            className='text-black'
                                 label="To"
     
                                 amount={convertedAmount}
