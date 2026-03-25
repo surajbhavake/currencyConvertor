@@ -1,4 +1,4 @@
-import { useState ,useEffect} from 'react'
+import { useState ,useEffect, use} from 'react'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 import './App.css'
 import {InputBox} from './components'
@@ -89,13 +89,32 @@ useEffect(()=>{
 
 
 
+//Dark mode 
+
+const [darkMode, setDarkMode] = useState(false)
+const [darkLoaded,setDarkLoaded] = useState(false)
+
+useEffect(()=>{
+    const saved = localStorage.getItem("darkMode")
+
+    if(saved){
+        setDarkMode(JSON.parse(saved))
+    }
+    setDarkLoaded(true)
+},[])
+
+useEffect(()=>{
+    if(!darkLoaded) return
+    localStorage.setItem("darkMode",JSON.stringify(darkMode))
+},[darkMode])
 
 if (loading) return <p>Loading...</p>
 if(error) return <p>{error}</p>
 
    return (
         <div
-            className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat " 
+            className={`w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat
+                ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`} 
             style={{
                 backgroundImage: `url('https://pixabay.com/illustrations/backpacker-road-walk-anime-7628303/')`,
             }}
@@ -157,6 +176,16 @@ if(error) return <p>{error}</p>
                     </form>
                     
                 </div>
+            </div>
+            <div>
+                <button
+                onClick={()=> setDarkMode(!darkMode)}
+                className='mb-4 px-3 py-1 bg-blue-500 rounded text-white ml-3 mt-3 hover:bg-blue-700 cursor-pointer'
+
+
+                >
+                    {darkMode ? "Light Mode ☀️" : "Dark mode 🌙"}
+                </button>
             </div>
              <div className='mt-4 p-2'>
                     <h2 className='text-lg font-bold'>History</h2>
