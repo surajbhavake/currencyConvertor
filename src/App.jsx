@@ -24,9 +24,9 @@ function App() {
     setTimeout(()=>{
       const temp = from
       setFrom(to)
-      setTo(from)
+      setTo(temp)
       setAmount(convertedAmount)
-      setConvertedAmount(amount)
+      
       setIsSwapping(false)
     },300)
   }
@@ -114,7 +114,7 @@ if(error) return <p>{error}</p>
    return (
         <div
             className={`w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat
-                ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`} 
+                ${darkMode ? "bg-gray-900 " : "bg-white/30 text-black"}`} 
             style={{
                 backgroundImage: `url('https://pixabay.com/illustrations/backpacker-road-walk-anime-7628303/')`,
             }}
@@ -123,7 +123,7 @@ if(error) return <p>{error}</p>
                 
               <div className={`transition-all duration-300 ${isSwapping ? "scale-95" : ""}`}>
                 
-                <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+                <div className="w-[350px]  mx-auto   rounded-3xl p-6 backdrop-blur-xl shadow-xl bg-gray-200">
 
                
                 
@@ -136,7 +136,7 @@ if(error) return <p>{error}</p>
                     >
                         <div className="w-full mb-1">
                             <InputBox
-                            className='text-black'
+                            className='text-black  '
                                 label="From"
                                 amount={amount}
                                 currencyOptions={options}
@@ -150,7 +150,7 @@ if(error) return <p>{error}</p>
                          
                             <button
                                 type="button"
-                                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2  rounded-full text-sm bg-black text-white cursor-pointer font-semibold px-3 py-1 hover:scale-105 transition"
                                 onClick={swap}
                             >
                                 swap
@@ -162,7 +162,7 @@ if(error) return <p>{error}</p>
                             className='text-black'
                                 label="To"
     
-                                amount={convertedAmount}
+                                amount={convertedAmount.toFixed(2)}
                                 currencyOptions={options}
                                 selectCurrency={to}
                                amountDisable
@@ -172,29 +172,19 @@ if(error) return <p>{error}</p>
                         </div>
                         <button 
                         onClick={handelConvert}
-                        type="button" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
+                        type="button" className="w-full mt-4 py-3 rounded-full 
+bg-black text-white font-semibold 
+hover:scale-105 transition cursor-pointer">
                             Convert {from.toUpperCase()} to {to.toUpperCase()}
                         </button>
                     </form>
-                    
-                </div>
-            </div>
-            <div>
-                <button
-                onClick={()=> setDarkMode(!darkMode)}
-                className='mb-4 px-3 py-1 bg-blue-500 rounded text-white ml-3 mt-3 hover:bg-blue-700 cursor-pointer'
 
-
-                >
-                    {darkMode ? "Light Mode ☀️" : "Dark mode 🌙"}
-                </button>
-            </div>
-             <div className='mt-4 p-2'>
-                    <h2 className='text-lg font-bold'>History</h2>
+                     <div className='mt-4 p-2 bg-white rounded-2xl '>
+                    <h2 className='text-lg font-bold p-2'>History</h2>
 
                     {history.map((item,index)=>(
                         <div key={index}
-                        className='max-w-100 text-sm bg-gray-400/50 p-2 rounded mb-1 cursor-pointer hover:bg-gray-400/75'
+                        className='max-w-100 text-sm bg-gray-400/50 p-3  rounded-2xl mb-1.5 cursor-pointer hover:bg-gray-400/75 hover:scale-101  transition font-semibold'
                         onClick={()=>{
                             setAmount(item.amount)
                             setFrom(item.from)
@@ -205,9 +195,29 @@ if(error) return <p>{error}</p>
                         </div>
                     ))}
 
-                    <button className='text-white text-sm mt-2 bg-blue-600 px-3 py-2 rounded-lg cursor-pointer hover:bg-blue-800'
+                    <button className='text-white  font-semibold
+hover:scale-105 transition text-sm mt-2 bg-black px-3 py-2 rounded-2xl  cursor-pointer'
                     onClick={()=>(setHistory([]))}>Clear History</button>
+                         <button
+                onClick={()=> setDarkMode(!darkMode)}
+                className={`mb-4 px-3 py-1 font-semibold hover:scale-105 transitionhover:scale-105 transition   rounded-2xl  ml-3 mt-3  cursor-pointer
+                    ${darkMode ? "bg-white text-black border border-black " :"bg-black text-white"}
+                    `
+                    
+                }
+
+
+                >
+                    {darkMode ? "☀️" : "🌙"}
+                </button>
                 </div>
+                    
+                </div>
+            </div>
+            <div>
+           
+            </div>
+            
             </div>
         </div>
     );
